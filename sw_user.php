@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
 
-require __DIR__ . "/models/User.php";
+require_once __DIR__ . "/models/User.php";
 
 // Recogida de parámetros con POST
 $action = isset($_POST["action"])? $_POST["action"]:"";
@@ -22,11 +22,15 @@ $msg = "";
 try {
     switch ($action){
         case "get":
+            require __DIR__."/inc/auth.inc.php";
+
             $data = User::find($filters, $pagina, $num_registros);
             $msg = "Listado de usuarios";
             break;
 
         case "insert":
+            require __DIR__."/inc/auth.inc.php";
+
             $email = isset($arrUser["email"])?$arrUser["email"]:null;
             $password = isset($arrUser["password"])?$arrUser["password"]:null;
             $nombre = isset($arrUser["nombre"])?$arrUser["nombre"]:null;
@@ -44,6 +48,8 @@ try {
             break;
 
         case "update":
+            require __DIR__."/inc/auth.inc.php";
+
             $email = isset($arrUser["email"])?$arrUser["email"]:null;
             $password = isset($arrUser["password"])?$arrUser["password"]:null;
             $token = isset($arrUser["token"])?$arrUser["token"]:null;
@@ -64,6 +70,8 @@ try {
             break;
 
         case "delete":
+            require __DIR__."/inc/auth.inc.php";
+
             $email = isset($arrUser["email"])?$arrUser["email"]:null;
 
             $user = new User($email);
@@ -93,6 +101,8 @@ try {
             break;
 
         case "logout":
+            require __DIR__."/inc/auth.inc.php";
+
             $email = isset($arrUser["email"])?$arrUser["email"]:null;
             $password = isset($arrUser["password"])?$arrUser["password"]:null;
 

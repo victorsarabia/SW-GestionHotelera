@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . "/../inc/BDConnectionSingleton.php";
+require_once __DIR__ . "/../inc/BDConnectionSingleton.php";
 
 /**
  * Class User
@@ -337,7 +337,7 @@ class User
      * Devuelve el objeto usuario si el token es válido
      *
      * @param $token
-     * @return User
+     * @return false|User
      * @throws Exception
      */
     public static function getUserLogued($token) {
@@ -351,7 +351,7 @@ class User
             $stmt->execute($params);
 
             $arrUser = $stmt->fetch(PDO::FETCH_ASSOC);
-            $user = new User();
+            $user = FALSE;
             if ($arrUser) {
                 $user = new User($arrUser["email"], null, null, null, $arrUser["nombre"], $arrUser["apellidos"], $arrUser["telefono"], null);
             }

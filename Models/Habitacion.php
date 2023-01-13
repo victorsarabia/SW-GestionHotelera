@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . "/../inc/BDConnectionSingleton.php";
+require_once __DIR__ . "/../inc/BDConnectionSingleton.php";
 
 /**
  * Class Medico

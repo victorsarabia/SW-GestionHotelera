@@ -1,10 +1,37 @@
 <?php
-session_start();
+require_once __DIR__ . "/../models/User.php";
 
-if (!isset($_SESSION["user_id"])){
-    //TODO Redirigir a login en el frontend
-    //TODO Devolver JSON con el error de autorización
+// Recogida de parámetros con POST
+$token = isset($_POST["token"])? $_POST["token"]:"";
+
+// Inicialización de variables
+$user = null;
+
+if (empty($token) || !($user = User::getUserLogued($token))){
+    $salida = array(
+        "data" => [],
+        "msg" => "Usuario no identificado.",
+        "success" => false
+    );
+
+    // Verifica que no falle la codificación en el JSON
+    if ($salida= json_encode($salida)){
+        echo $salida;
+
+    } else {
+        $salida = array(
+            "data" => [],
+            "msg" => "Error al parsear el JSON",
+            "success" => false
+        );
+
+        echo json_encode($salida);
+    }
+
+    // Para que no ejecute nada más donde sea llamado
     exit();
 }
+
+
 
 
